@@ -587,7 +587,7 @@ let resetCode = null;
 
 // EmailJS Configuration
 const EMAILJS_SERVICE_ID = 'service_6qk8o2a';
-const EMAILJS_TEMPLATE_ID = 'template_9ir75fk';
+const EMAILJS_TEMPLATE_ID = 'template_2q6g4m1';
 const EMAILJS_PUBLIC_KEY = 'HLleZiSOwcw59RRi0';
 
 window.sendResetEmail = async function() {
