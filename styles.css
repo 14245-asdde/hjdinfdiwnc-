@@ -1,0 +1,35 @@
+* {
+    font-family: 'Inter', sans-serif;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f0f14;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #7c3aed;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #8b5cf6;
+}
+
+::selection {
+    background: rgba(124, 58, 237, 0.3);
+}
+
+input::placeholder,
+select::placeholder {
+    color: #6b7280;
+}
+
+select option {
+    background: #0f0f14;
+    color: white;
+}
