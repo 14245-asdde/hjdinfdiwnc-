@@ -372,23 +372,16 @@
             document.getElementById('stockHalfyear').textContent = keyStock.halfyear?.length || 0;
             document.getElementById('stockForever').textContent = keyStock.forever?.length || 0;
             
-            // Load sale timer
-            const saleRef = doc(db, "settings", "saleTimer");
-            const saleSnap = await getDoc(saleRef);
-            if (saleSnap.exists()) {
-                document.getElementById('saleActive').checked = saleSnap.data().isActive;
-            }
-            
             // Load promo codes
             await loadPromoCodes();
             
-            // Load logs
+            // Load logs - вызываем сразу
             await loadLogs();
             
             // Load reviews for moderation
             await loadReviewsModeration();
             
-            // Render users
+            // Render users - вызываем сразу
             renderUsers();
         }
 
@@ -420,7 +413,7 @@
             const logs = logsSnap.exists() ? logsSnap.data().items : [];
             
             const list = document.getElementById('logsList');
-            if (logs.length === 0) {
+            if (!logs || logs.length === 0) {
                 list.innerHTML = '<p class="text-neutral-500 text-center py-4">Нет логов</p>';
             } else {
                 list.innerHTML = logs.slice(0, 50).map(log => `
@@ -504,25 +497,6 @@
                 </div>
             `).join('');
         }
-
-        // Toggle sale timer
-        window.toggleSaleTimer = async function() {
-            const isActive = document.getElementById('saleActive').checked;
-            const saleRef = doc(db, "settings", "saleTimer");
-            await updateDoc(saleRef, { isActive });
-            showToast(isActive ? 'Таймер активирован' : 'Таймер отключён');
-        };
-
-        // Set sale timer
-        window.setSaleTimer = async function() {
-            const hours = parseInt(document.getElementById('saleHours').value) || 24;
-            const endTime = Date.now() + hours * 60 * 60 * 1000;
-            const saleRef = doc(db, "settings", "saleTimer");
-            await updateDoc(saleRef, { endTime, isActive: true });
-            document.getElementById('saleActive').checked = true;
-            document.getElementById('saleHours').value = '';
-            showToast(`Таймер установлен на ${hours} часов`);
-        };
 
         // Create promo code
         window.createPromoCode = async function() {
